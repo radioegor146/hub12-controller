@@ -1,0 +1,10 @@
+.pio_version 0
+
+.program hub12
+
+.side_set 1
+
+.wrap_target
+    out pins, 12    side 0
+    nop             side 1
+.wrap
