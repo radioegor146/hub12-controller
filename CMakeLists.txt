@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.13)
 
-# set(ENV{PICO_SDK_PATH} /home/radioegor146/pico-sdk)
+set(ENV{PICO_SDK_PATH} /home/radioegor146/pico-sdk)
 
 include(pico_sdk_import.cmake)
 

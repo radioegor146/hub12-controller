@@ -11,11 +11,11 @@
 
 #define MIN_DATA_PIN 0
 #define MAX_DATA_PIN 11
-#define CLOCK_PIN 12
-#define LATCH_PIN 13
-#define OUTPUT_ENABLE_PIN 22
-#define A0_PIN 18
-#define A1_PIN 19
+#define CLOCK_PIN 23
+#define LATCH_PIN 24
+#define OUTPUT_ENABLE_PIN 25
+#define A0_PIN 26
+#define A1_PIN 22
 
 #define USED_PIO pio0
 #define USED_SM 0

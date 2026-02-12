@@ -79,9 +79,9 @@ static USBInterfaceDescriptor kInterfaceDescription = {
 static USBConfigurationDescriptor kConfigurationDescriptor = {
     .bLength = sizeof(USBConfigurationDescriptor),
     .bDescriptorType = USB_DT_CONFIG,
-    .wTotalLength =
-        (sizeof(kConfigurationDescriptor) + sizeof(kInterfaceDescription) +
-         sizeof(kEP1Out) + sizeof(kEP2Out)),
+    .wTotalLength = sizeof(kConfigurationDescriptor) +
+                    sizeof(kInterfaceDescription) + sizeof(kEP1Out) +
+                    sizeof(kEP2Out),
     .bNumInterfaces = 1,
     .bConfigurationValue = 1,
     .iConfiguration = 0,
