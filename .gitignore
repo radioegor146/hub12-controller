@@ -1,3 +1,6 @@
 .idea/
-cmake-build-debug/
+cmake-build-*/
+build/
+.vscode/
 src/*.pio.h
+.DS_Store

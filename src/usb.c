@@ -85,7 +85,7 @@ static USBConfigurationDescriptor kConfigurationDescriptor = {
     .bNumInterfaces = 1,
     .bConfigurationValue = 1,
     .iConfiguration = 0,
-    .bmAttributes = 0xc0,
+    .bmAttributes = 0x80,
     .bMaxPower = 0x32};
 
 static const uint8_t kLangDescriptor[] = {4, 0x03, 0x09, 0x04};
@@ -441,9 +441,10 @@ static void USBEP2OutHandler(uint8_t* buffer, uint16_t length) {
 }
 
 void USBWaitForConfiguration() {
-  while (!configured) {
-    tight_loop_contents();
-  }
+  // TODO??
+  // while (!configured) {
+  //   tight_loop_contents();
+  // }
   USBStartTransfer(USBGetEndpointConfiguration(EP1_OUT_ADDR), NULL, 64);
   USBStartTransfer(USBGetEndpointConfiguration(EP2_OUT_ADDR), NULL, 64);
 }
