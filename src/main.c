@@ -1,5 +1,6 @@
 #include <hardware/gpio.h>
 #include <pico/stdio.h>
+#include <string.h>
 #include "hub12.h"
 #include "usb.h"
 
@@ -11,6 +12,7 @@ int main(void) {
   gpio_put(DEBUG_LED, false);
 
   Hub12Initialize();
+
   USBInitialize();
   USBWaitForConfiguration();
 

@@ -131,6 +131,8 @@ typedef struct __attribute__((__packed__)) {
   uint16_t wLength;
 } USBSetupPacket;
 
+#define USB_BUFFER_SIZE (DMA_BUFFER_SIZE / 4 * 3)
+
 void USBInitialize();
 void USBWaitForConfiguration();
 

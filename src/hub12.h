@@ -7,7 +7,7 @@
 #define WIDTH 224
 #define HEIGHT 192
 
-#define BUFFER_SIZE (WIDTH * HEIGHT / 8)
+#define DMA_BUFFER_SIZE (WIDTH * HEIGHT / 8 / 3 * 4)
 
 #define MIN_DATA_PIN 0
 #define MAX_DATA_PIN 11

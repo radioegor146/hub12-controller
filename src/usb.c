@@ -415,17 +415,30 @@ static void USBEP0InHandler(uint8_t* buffer, uint16_t length) {
   }
 }
 
-uint32_t buffer_position = 0;
+uint32_t usb_buffer_position = 0;
+uint8_t usb_buffer[USB_BUFFER_SIZE];
+
+static void USBPushBufferToHub12() {
+  // fucking bits and blips woodoo magic shit
+  uint8_t* hub12_buffer = Hub12GetAvailableBuffer();
+  uint32_t hub12_buffer_position = 0;
+  for (uint32_t i = 0; i < USB_BUFFER_SIZE; i += 3) {
+    hub12_buffer[hub12_buffer_position++] = usb_buffer[i];
+    hub12_buffer[hub12_buffer_position++] = usb_buffer[i + 1];
+    hub12_buffer[hub12_buffer_position++] = usb_buffer[i + 2];
+    hub12_buffer[hub12_buffer_position++] = 0xFF;
+  }
+  Hub12PushBuffer();
+}
 
 static void USBEP1OutHandler(uint8_t* buffer, uint16_t length) {
   while (length) {
-    uint8_t* led_buffer = Hub12GetAvailableBuffer();
-    uint32_t read_length = MIN(BUFFER_SIZE - buffer_position, length);
-    memcpy(led_buffer + buffer_position, buffer, read_length);
-    buffer_position += read_length;
-    if (buffer_position == BUFFER_SIZE) {
-      Hub12PushBuffer();
-      buffer_position = 0;
+    uint32_t read_length = MIN(USB_BUFFER_SIZE - usb_buffer_position, length);
+    memcpy(usb_buffer + usb_buffer_position, buffer, read_length);
+    usb_buffer_position += read_length;
+    if (usb_buffer_position == USB_BUFFER_SIZE) {
+      USBPushBufferToHub12();
+      usb_buffer_position = 0;
     }
     buffer += read_length;
     length -= read_length;
@@ -435,7 +448,7 @@ static void USBEP1OutHandler(uint8_t* buffer, uint16_t length) {
 
 static void USBEP2OutHandler(uint8_t* buffer, uint16_t length) {
   if (length > 0) {
-    buffer_position = 0;
+    usb_buffer_position = 0;
   }
   USBStartTransfer(USBGetEndpointConfiguration(EP2_OUT_ADDR), NULL, 64);
 }

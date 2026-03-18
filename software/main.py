@@ -40,7 +40,7 @@ while True:
         delay = (1 / target_fps - 1 / fps)
     else:
         delay = 0
-    time.sleep(delay)
+    # time.sleep(delay)
 
 # 120 fps = 0.0083 per frame
 # 160 fps = 0.00625 per frame

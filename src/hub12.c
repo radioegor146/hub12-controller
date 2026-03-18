@@ -5,8 +5,8 @@
 
 #include "hub12.pio.h"
 
-uint8_t buffer_1[BUFFER_SIZE] = {0};
-uint8_t buffer_2[BUFFER_SIZE] = {0};
+uint8_t buffer_1[DMA_BUFFER_SIZE] = {0};
+uint8_t buffer_2[DMA_BUFFER_SIZE] = {0};
 
 uint8_t* current_dma_buffer = buffer_1;
 uint8_t* available_buffer = buffer_2;
@@ -51,8 +51,8 @@ static void Hub12DMAFinished() {
   }
 
   dma_channel_configure(dma_channel, &dma_config, &USED_PIO->txf[USED_SM],
-                        current_dma_buffer + BUFFER_SIZE / 4 * current_row,
-                        BUFFER_SIZE / 4 / 4, true);
+                        current_dma_buffer + DMA_BUFFER_SIZE / 4 * current_row,
+                        DMA_BUFFER_SIZE / 4 / 4, true);
 }
 
 static void Hub12DMAIRQHandler() {
@@ -95,7 +95,7 @@ static void Hub12PIOProgramInitialize() {
   pio_sm_config config = hub12_program_get_default_config(pio_program_offset);
   sm_config_set_out_pins(&config, MIN_DATA_PIN, pin_count);
   sm_config_set_sideset_pins(&config, CLOCK_PIN);
-  sm_config_set_out_shift(&config, true, true, 32);
+  sm_config_set_out_shift(&config, true, true, 24);
   sm_config_set_clkdiv(&config, PIO_CLOCK_DIVIDER);
   pio_sm_init(USED_PIO, USED_SM, pio_program_offset, &config);
   pio_sm_set_enabled(USED_PIO, USED_SM, true);
@@ -122,8 +122,8 @@ void Hub12Initialize() {
   Hub12PIODMAInitialize();
 
   dma_channel_configure(dma_channel, &dma_config, &USED_PIO->txf[USED_SM],
-                        current_dma_buffer + BUFFER_SIZE / 4 * current_row,
-                        BUFFER_SIZE / 4 / 4, true);
+                        current_dma_buffer + DMA_BUFFER_SIZE / 4 * current_row,
+                        DMA_BUFFER_SIZE / 4 / 4, true);
 }
 
 uint8_t* Hub12GetAvailableBuffer() {
