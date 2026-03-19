@@ -37,7 +37,7 @@ while True:
             total_bytes += 5376
             speed = total_bytes / (time.time() - start_time)
             if i % 100 == 0:
-                print(f'{speed * 8:.2f}B/s, {speed / 5376:.2f} FPS, delay {delay * 1000:.2f} ms')
+                print(f'{speed * 8 / 1000 / 1000:.2f}MB/s, {speed / 5376:.2f} FPS, delay {delay * 1000:.2f} ms')
             fps = speed / 5376
             if fps > target_fps:
                 delay = (1 / target_fps - 1 / fps)
