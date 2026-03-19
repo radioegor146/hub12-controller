@@ -1,8 +1,8 @@
-#ifndef HUB12_CONTROLLER_HUB12_H
-#define HUB12_CONTROLLER_HUB12_H
+#ifndef HUB12_H_
+#define HUB12_H_
 
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 #define WIDTH 224
 #define HEIGHT 192
@@ -30,4 +30,4 @@ void Hub12Initialize();
 uint8_t* Hub12GetAvailableBuffer();
 void Hub12PushBuffer();
 
-#endif  //HUB12_CONTROLLER_HUB12_H
+#endif  // HUB12_H_

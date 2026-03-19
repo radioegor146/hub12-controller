@@ -1,4 +1,5 @@
 # == DO NOT EDIT THE FOLLOWING LINES for the Raspberry Pi Pico VS Code Extension to work ==
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 if(WIN32)
     set(USERHOME $ENV{USERPROFILE})
 else()
@@ -12,9 +13,9 @@ if (EXISTS ${picoVscode})
     include(${picoVscode})
 endif()
 # ====================================================================================
-set(PICO_BOARD pico CACHE STRING "Board type")
-
 cmake_minimum_required(VERSION 3.13)
+
+set(PICO_BOARD pico CACHE STRING "Board type")
 
 include(pico_sdk_import.cmake)
 
@@ -29,7 +30,8 @@ pico_generate_pio_header(hub12_controller ${CMAKE_CURRENT_LIST_DIR}/src/hub12.pi
 target_sources(hub12_controller PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}/src/main.c
         ${CMAKE_CURRENT_LIST_DIR}/src/usb.c
-        ${CMAKE_CURRENT_LIST_DIR}/src/hub12.c)
+        ${CMAKE_CURRENT_LIST_DIR}/src/hub12.c
+        ${CMAKE_CURRENT_LIST_DIR}/src/debug.c)
 
 target_link_libraries(hub12_controller PUBLIC pico_stdlib pico_unique_id pico_rand hardware_pio hardware_dma hardware_uart)
 

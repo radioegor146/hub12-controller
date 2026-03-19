@@ -1,5 +1,5 @@
-#ifndef HUB12_CONTROLLER_USB_H
-#define HUB12_CONTROLLER_USB_H
+#ifndef USB_H_
+#define USB_H_
 
 #include <hardware/structs/usb.h>
 #include <stdint.h>
@@ -136,4 +136,4 @@ typedef struct __attribute__((__packed__)) {
 void USBInitialize();
 void USBWaitForConfiguration();
 
-#endif  //HUB12_CONTROLLER_USB_H
+#endif  // USB_H_

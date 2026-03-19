@@ -8,6 +8,7 @@
 #include <string.h>
 
 #include "hub12.h"
+#include "debug.h"
 
 #define USB_HW_SET ((usb_hw_t*)hw_set_alias_untyped(usb_hw))
 #define USB_HW_CLEAR ((usb_hw_t*)hw_clear_alias_untyped(usb_hw))
@@ -104,7 +105,7 @@ static USBDeviceConfiguration kDeviceConfiguration = {
     .config_descriptor = &kConfigurationDescriptor,
     .lang_descriptor = kLangDescriptor,
     .descriptor_strings = kDescriptorStrings,
-    .endpoints = {{
+    .endpoints = {{ 
                       .descriptor = &kEP0Out,
                       .handler = &USBEP0OutHandler,
                       .endpoint_control = NULL,
@@ -135,7 +136,7 @@ static USBDeviceConfiguration kDeviceConfiguration = {
 
 static uint8_t device_address = 0;
 static bool should_set_address = false;
-static bool configured = false;
+static volatile bool configured = false;
 static uint8_t ep0_buf[64];
 
 static inline uint32_t USBGetBufferOffset(volatile const uint8_t* buffer) {
@@ -454,10 +455,9 @@ static void USBEP2OutHandler(uint8_t* buffer, uint16_t length) {
 }
 
 void USBWaitForConfiguration() {
-  // TODO??
-  // while (!configured) {
-  //   tight_loop_contents();
-  // }
+  while (!configured) {
+    DebugBlinkLED(100);
+  }
   USBStartTransfer(USBGetEndpointConfiguration(EP1_OUT_ADDR), NULL, 64);
   USBStartTransfer(USBGetEndpointConfiguration(EP2_OUT_ADDR), NULL, 64);
 }
