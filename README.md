@@ -8,6 +8,6 @@ It uses:
 - Low-level USB w/o any libraries to push data to buffer
 
 It achieves:
-- 160 FPS on 224x192 monochrome display with 12 parallel lanes
+- ~160 FPS on 224x192 monochrome display with 12 parallel lanes
 
 Pins are set in [this file](src/hub12.h)
